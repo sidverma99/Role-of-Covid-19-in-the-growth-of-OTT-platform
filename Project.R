@@ -1,0 +1,13 @@
+library(readxl)
+data <- read_excel("Desktop/BTP/OTT Platform Survey (Responses).xlsx")
+data1=data.frame(data$TTW_family,data$`content Quality`,data$`No Adv`,data$`Prefer OTT`,data$convinience,data$Conti_Subscrtption,data$`Prefer free OTT`,data$Overprice,data$TTW_friends,data$WFH_TTW,data$Usage)
+library(corrplot)
+matrix=cor(data1)
+corrplot(matrix,method = "number")
+model0 = lm(data.Usage~data.TTW_family+data..content.Quality.+data..No.Adv.+data..Prefer.OTT.+data.convinience+data.Conti_Subscrtption+data..Prefer.free.OTT.+data.Overprice+data.TTW_friends+data.WFH_TTW, data1)
+summary(model0)
+library(car)
+vif(model0)
+data2=data1[,-11]
+datamatrix=cor(data2)
+KMO(r=datamatrix)
